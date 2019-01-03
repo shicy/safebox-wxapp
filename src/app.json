@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/auth/login",
+    "pages/auth/login/login",
     "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ED2E2E",
-    "navigationBarTitleText": "保险箱",
+    "navigationBarTitleText": "我的秘密",
     "navigationBarTextStyle": "white"
   }
 }
