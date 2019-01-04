@@ -1,1 +1,6 @@
 /* pages/auth/login/login.wxss */
+
+page {
+  height: 100%;
+  background-color: #7BB5D1;
+}

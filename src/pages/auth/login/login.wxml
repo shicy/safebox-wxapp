@@ -1,2 +1,4 @@
 <!--pages/auth/login/login.wxml-->
-<text>pages/auth/login/login.wxml</text>
+
+<view class="m-login">
+</view>
