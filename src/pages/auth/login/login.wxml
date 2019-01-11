@@ -1,4 +1,20 @@
 <!--pages/auth/login/login.wxml-->
 
 <view class="m-login">
+  <view class="bg">
+    <image src="/images/login_bg.png"></image>
+  </view>
+
+  <view class="new">这是你首次登录，你输入的口令就是以后登录的口令。</view>
+
+  <view class="form">
+    <view class="form-item">
+      <input password="{{true}}" placeholder="请输入口令" placeholder-class="hover"
+        cursor-spacing="40rpx"></input>
+      <image class="icon" src="/images/001.png"></image>
+    </view>
+  </view>
+  <view class="btns">
+    <button class="loginbtn">登录</button>
+  </view>
 </view>

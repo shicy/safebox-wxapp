@@ -4,3 +4,75 @@ page {
   height: 100%;
   background-color: #7BB5D1;
 }
+
+.m-login .bg image {
+  margin: 0px auto;
+  width: 512rpx;
+  height: 512rpx;
+}
+
+.m-login .new {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 560rpx;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.m-login .form {
+  padding: 0px 60rpx;
+  margin-top: 100rpx;
+}
+
+.m-login .form-item {
+  position: relative;
+}
+
+.m-login .form-item input {
+  padding: 0px 90rpx;
+  height: 100rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.m-login .form-item .icon {
+  position: absolute;
+  width: 64rpx;
+  height: 64rpx;
+  left: 28rpx;
+  top: 19rpx;
+}
+
+.m-login .form-item .hover {
+  color: #999;
+}
+
+.m-login .btns {
+  margin-top: 60rpx;
+}
+
+.m-login .loginbtn {
+  width: 200rpx;
+  height: 64rpx;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 200;
+  line-height: 64rpx;
+  border-radius: 8rpx;
+  background: none;
+}
+
+.m-login .loginbtn:active {
+  color: #7BB5D1;
+  background-color: #fff;
+}
+
+.m-login .loginbtn::after {
+  border-color: rgba(255, 255, 255, 0.5);
+  border-radius: 16rpx;
+}
