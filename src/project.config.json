@@ -18,6 +18,7 @@
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"cloudfunctionRoot": "functions/",
 	"condition": {
 		"search": {
 			"current": -1,
