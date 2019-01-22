@@ -31,7 +31,7 @@ page {
 }
 
 .m-login .form-item input {
-  padding: 0px 90rpx;
+  padding: 0px 100rpx;
   height: 100rpx;
   font-size: 32rpx;
   text-align: center;
@@ -50,6 +50,28 @@ page {
 
 .m-login .form-item .hover {
   color: #999;
+}
+
+.m-login .eye {
+  position: absolute;
+  width: 100rpx;
+  height: 100rpx;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  border: 0px;
+  background: none;
+}
+
+.m-login .eye image {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.m-login .eye::after {
+  display: none
 }
 
 .m-login .btns {

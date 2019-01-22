@@ -5,16 +5,20 @@
     <image src="/images/login_bg.png"></image>
   </view>
 
-  <view class="new">这是你首次登录，你输入的口令就是以后登录的口令。</view>
+  <view wx:if="{{isFirstLogin}}" class="new">这是你首次登录，你输入的口令就是以后登录的口令。</view>
 
   <view class="form">
     <view class="form-item">
-      <input password="{{true}}" placeholder="请输入口令" placeholder-class="hover"
-        cursor-spacing="40rpx"></input>
+      <input type="text" password="{{!seepwd}}" placeholder="请输入口令" placeholder-class="hover"
+        cursor-spacing="40rpx" bindinput="onInputHandler"></input>
       <image class="icon" src="/images/001.png"></image>
+      <button class="eye" bindtap="onEyeBtnHandler">
+        <image wx:if="{{seepwd}}" src="/images/011.png"></image>
+        <image wx:else src="/images/010.png"></image>
+      </button>
     </view>
   </view>
   <view class="btns">
-    <button class="loginbtn">登录</button>
+    <button class="loginbtn" bindtap="onLoginBtnHandler">登录</button>
   </view>
 </view>
