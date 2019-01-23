@@ -13,7 +13,15 @@ exports.main = async (event, context) => {
       .where({openId: openId || "none"})
       .get()
       .then((res) => {
-        resolve(res);
+        if (/ok/.test(res.errMsg)) {
+          resolve(res.data && res.data[0] || null);
+        }
+        else {
+          reject(res.errMsg);
+        }
+      })
+      .catch((err) => {
+        reject(err);
       });
   });
 }
