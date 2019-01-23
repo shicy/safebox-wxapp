@@ -1,33 +1,37 @@
 //app.js
 
-App({
-  wxopenId: null,
+wx.cloud.init();
 
-  onLaunch: function () {
-    wx.cloud.init();
-    // this.getWxOpenId((openId) => {
-    //   console.log(openId)
-    // });
+App({
+  userInfo: null,
+  userSecret: null,
+
+  onLaunch () {
   },
 
-  getWxOpenId: function (callback) {
-    if (this.wxopenId) {
-      if (callback)
-        callback(this.wxopenId);
-    }
-    else {
-      wx.cloud.callFunction({
-        name: "getOpenId",
-        success: function (res) {
-          this.wxopenId = res && res.result;
-          if (callback)
-            callback(this.wxopenId);
-        },
-        fail: function (err) {
-          if (callback)
-            callback(null);
+  cloudFunction (name, data, callback) {
+    if (typeof callback != "function")
+      callback = () => {};
+    wx.cloud.callFunction({ name: name, data: data })
+      .then((res) => {
+        if (/ok/.test(res.errMsg)) {
+          callback(false, res.result);
+        }
+        else if (callback(res) !== false) {
+          wx.showModal({
+            title: "出错了",
+            content: (res.errMsg || res)
+          });
+        }
+      })
+      .catch((err) => {
+        if (callback(err) !== false) {
+          wx.showModal({
+            title: "出错了",
+            content: (err.errMsg || err)
+          });
         }
       });
-    }
   }
+
 })

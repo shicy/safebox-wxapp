@@ -18,6 +18,7 @@
       </button>
     </view>
   </view>
+  
   <view class="btns">
     <button class="loginbtn" bindtap="onLoginBtnHandler">登录</button>
   </view>
