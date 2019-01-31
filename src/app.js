@@ -63,8 +63,17 @@ App({
       title: title || "温馨提示",
       content: message,
       showCancel: false,
-      confirmText: "知道了"
+      confirmText: "知道了",
+      confirmColor: "#7BB5D1"
     })
+  },
+
+  $tooltip (message, duration) {
+    wx.showToast({
+      title: message,
+      icon: "none",
+      duration: (duration || 3000)
+    });
   }
 
 })

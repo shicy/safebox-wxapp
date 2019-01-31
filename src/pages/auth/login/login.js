@@ -53,10 +53,10 @@ Page({
   onConfirmHandler (e) {
     e.detail.preventDefault = true;
     if (!e.detail.value) {
-      this.showError("请再次输入口令");
+      app.$tooltip("请再次输入口令");
     }
     else if (this.password != e.detail.value) {
-      this.showError("2次输入的口令不一致");
+      app.$tooltip("2次输入的口令不一致");
     }
     else {
       e.detail.preventDefault = false;
@@ -70,7 +70,7 @@ Page({
     params.uuid = this.uuid || Utils.randomText(16);
     params.password = Crypto.encrypt(this.password, params.uuid);
     params.auto = true;
-    wx.showLoading({ title: "正在登录..." });
+    wx.showLoading({ title: "正在登录...", mask: true });
     app.cloudFunction("login", params, (err, ret) => {
       wx.hideLoading();
       if (!err) {
@@ -95,16 +95,16 @@ Page({
 
   checkPassword () {
     if (!this.password)
-      return this.showError("请输入口令");
+      return app.$tooltip("请输入口令");
     if (this.data.isFirstLogin) {
       if (this.password.length < 8)
-        return this.showError("口令必须是8个字及以上");
+        return app.$tooltip("口令必须是8个字及以上");
       if (this.password.length > 16)
-        return this.showError("");
+        return app.$tooltip("");
       // if (!(/[a-zA-Z]/.test(this.password)))
-      //   return this.showError("口令必须包含字母和数字");
+      //   return app.$tooltip("口令必须包含字母和数字");
       // if (!(/\d/.test(this.password)))
-      //   return this.showError("口令必须包含字母和数字");
+      //   return app.$tooltip("口令必须包含字母和数字");
     }
     return true;
   },
@@ -117,14 +117,6 @@ Page({
         return false;
       });
     });
-  },
-
-  showError (errmsg) {
-    wx.showToast({
-      title: errmsg,
-      icon: "none",
-      duration: 3000
-    });
   }
-
+  
 })
