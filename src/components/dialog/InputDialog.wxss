@@ -1,1 +1,82 @@
 /* components/dialog/InputDialog.wxss */
+
+.comp-dialog-ipt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  color: #333;
+  font-size: 32rpx;
+}
+
+.comp-dialog-ipt .mask {
+  position: absolute;
+  z-index: -1;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.comp-dialog-ipt .container {
+  flex: none;
+  width: 86%;
+  border-radius: 10rpx;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.comp-dialog-ipt .title {
+  text-align: center;
+  font-size: 34rpx;
+  line-height: 80rpx;
+}
+
+.comp-dialog-ipt .content {
+  padding: 10px 28rpx 30rpx;
+}
+
+.comp-dialog-ipt .content .desc {
+  margin-bottom: 10rpx;
+  color: #999;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.comp-dialog-ipt .content input {
+  height: 80rpx;
+  padding: 0px 20rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 6rpx;
+}
+
+.comp-dialog-ipt .content .input-hover {
+  color: #ccc;
+}
+
+.comp-dialog-ipt .btns {
+  display: flex;
+  border-top: 1rpx solid #ddd;
+}
+
+.comp-dialog-ipt .btns .btn {
+  flex: auto;
+  font-size: 36rpx;
+  text-align: center;
+  line-height: 90rpx;
+  border-left: 1rpx solid #ddd;
+}
+
+.comp-dialog-ipt .btns .btn:first-child {
+  border-left: 0px;
+}
+
+.comp-dialog-ipt .btns .btn.submit {
+  color: #8FC0D8;
+}
