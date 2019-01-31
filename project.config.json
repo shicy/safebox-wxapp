@@ -6,11 +6,20 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"appid": "wx7016739e27ddbbab",
 	"projectname": "safebox-wxapp",
 	"libVersion": "2.5.1",
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "folder",
+				"value": "design"
+			}
+		]
+	},
 	"condition": {
 		"search": {
 			"current": -1,
