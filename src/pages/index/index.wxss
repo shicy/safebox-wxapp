@@ -1,1 +1,77 @@
 /**index.wxss**/
+
+page {
+  height: 100%;
+  overflow: auto;
+}
+
+.m-index {
+  min-height: 100%;
+}
+
+.m-index .empty {
+  padding-top: 170rpx;
+}
+
+.m-index .empty .bg {
+  margin: 0px auto;
+  width: 200rpx;
+  height: 162rpx;
+}
+
+.m-index .empty .additembtn {
+  margin-top: 50rpx;
+  width: 240rpx;
+  height: 84rpx;
+  font-size: 32rpx;
+  background-color: #7BB5D1;
+}
+
+.m-index .empty .additembtn .ic {
+  display: inline-block;
+  vertical-align: -4rpx;
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+.m-index .addview {
+  position: fixed;
+  z-index: 1;
+  right: 60rpx;
+  bottom: 80rpx;
+}
+
+.m-index .addview .btn {
+  width: 88rpx;
+  height: 88rpx;
+  padding-top: 28rpx;
+  margin-top: 24rpx;
+  text-align: center;
+  border-radius: 100%;
+  box-sizing: border-box;
+}
+
+.m-index .addview .btn:first-child {
+  margin-top: 0px;
+}
+
+.m-index .addview .btn image {
+  display: inline-block;
+  vertical-align: top;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.m-index .addview .addbtn {
+  background-color: rgba(94, 174, 84, 0.85);
+  box-shadow: 0px 0px 8rpx 0px #5EAE54;
+}
+
+.m-index .addview .addgroupbtn {
+  background-color: #EE7F2A;
+}
+
+.m-index .addview .additembtn {
+  background-color: #AACAD9;
+}

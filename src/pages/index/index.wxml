@@ -1,5 +1,28 @@
 <!--index.wxml-->
 
-<view class='m-index'>
-  
+<view class="m-index" bindtap="onViewTapHandler">
+  <view class="empty">
+    <image class="bg" src="/images/empty.png"></image>
+    <button class="additembtn" type="primary" bindtap="onAddItemBtnHandler">
+      <image class="ic" src="/images/008.png"></image>
+      <text>新秘密</text>
+    </button>
+  </view>
+
+  <view class="addview">
+    <view wx:if="{{showAddBtns}}" class="btn addgroupbtn"
+      catchtap="onAddGroupBtnHandler">
+      <image src="/images/004.png"></image>
+    </view>
+    <view wx:if="{{showAddBtns}}" class="btn additembtn"
+      catchtap="onAddItemBtnHandler">
+      <image src="/images/005.png"></image>
+    </view>
+    <view class="btn addbtn" catchtap="onAddBtnHandler">
+      <image src="/images/006.png"></image>
+    </view>
+  </view>
+
+  <input-dialog show="{{nameEditorVisible}}" title="{{nameEditorTitle}}"
+    value="{{nameEditorValue}}" bindsubmit="onEditSubmitHandler"></input-dialog>
 </view>

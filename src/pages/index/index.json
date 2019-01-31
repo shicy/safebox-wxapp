@@ -1,1 +1,6 @@
-{}
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "input-dialog": "../../components/dialog/InputDialog"
+  }
+}
