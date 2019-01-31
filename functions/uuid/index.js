@@ -1,25 +1,23 @@
-// 云函数入口文件
+// 获取用户的唯一编号 UUID
+
 const cloud = require('wx-server-sdk')
 
 cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const openId = cloud.getWXContext().OPENID;
-  const db = cloud.database();
-
+  let db = cloud.database();
   return new Promise((resolve, reject) => {
     db.collection("accounts")
-      .where({openId: openId || "none"})
+      .where({ openId: event.userInfo.openId })
       .get()
       .then((res) => {
         if (/ok/.test(res.errMsg)) {
           let data = res.data && res.data[0] || null;
-          resolve({ code: 0, data: data });
+          resolve({ code: 0, msg: "ok", data: data && data.uuid });
         }
         else {
-          console.log("===> error:", res);
-          resolve({ code: 1, msg: res });
+          resolve({ code: 1, msg: res.errMsg });
         }
       })
       .catch((err) => {
