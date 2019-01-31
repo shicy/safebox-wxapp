@@ -1,19 +1,13 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
+const randomChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 module.exports = {
-  formatTime: formatTime
+  // 生成随机字符串
+  randomText (len) {
+    var s = [], chars = randomChars;
+    for (var i = 0; i < len; i++) {
+      s.push(chars[Math.ceil(Math.random() * 61)]);
+    }
+    return s.join("");
+  }
 }
