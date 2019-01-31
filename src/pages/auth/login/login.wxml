@@ -9,8 +9,8 @@
 
   <view class="form">
     <view class="form-item">
-      <input type="text" password="{{!seepwd}}" placeholder="请输入口令" placeholder-class="hover"
-        cursor-spacing="40rpx" bindinput="onInputHandler"></input>
+      <input type="text" password="{{!seepwd}}" placeholder="请输入口令 8-16个字" placeholder-class="hover"
+        cursor-spacing="40rpx" bindinput="onInputHandler" bindconfirm="onLoginBtnHandler"></input>
       <image class="icon" src="/images/001.png"></image>
       <button class="eye" bindtap="onEyeBtnHandler">
         <image wx:if="{{seepwd}}" src="/images/011.png"></image>
@@ -22,4 +22,8 @@
   <view class="btns">
     <button class="loginbtn" bindtap="onLoginBtnHandler">登录</button>
   </view>
+
+  <input-dialog show="{{confirmDialogVisible}}" title="确认口令" showAsPassword="{{true}}"
+    label="这是你首次登录，请再次输入口令" value="{{confirmText}}"
+    bindsubmit="onConfirmHandler"></input-dialog>
 </view>

@@ -1,19 +1,30 @@
 // pages/auth/login/login.js
 
+const Utils = require("../../../utils/util.js");
+const Crypto = require("../../../utils/crypto.js");
+
 const app = getApp();
 
 Page({
+  uuid: "",
   password: "",
 
   data: {
     seepwd: false,
-    isFirstLogin: false
+    isFirstLogin: false,
+    confirmText: "",
+    confirmDialogVisible: false
   },
 
   onLoad () {
-    this.initUserInfo().then((account) => {
-      this.setData({ isFirstLogin: !account });
-    });
+    if (app.isDev() && app.userInfo) {
+      wx.redirectTo({ url: "/pages/index/index" });
+    }
+    else {
+      this.initUserInfo().then((uuid) => {
+        this.setData({ isFirstLogin: !uuid });
+      });
+    }
   },
 
   // 用户输入口令
@@ -30,9 +41,56 @@ Page({
   onLoginBtnHandler (e) {
     if (this.checkPassword()) {
       if (this.data.isFirstLogin) {
-        
+        this.setData({ confirmText: "", confirmDialogVisible: true });
+      }
+      else {
+        this.doLogin();
       }
     }
+  },
+
+  // 用户2次确认口令
+  onConfirmHandler (e) {
+    e.detail.preventDefault = true;
+    if (!e.detail.value) {
+      this.showError("请再次输入口令");
+    }
+    else if (this.password != e.detail.value) {
+      this.showError("2次输入的口令不一致");
+    }
+    else {
+      e.detail.preventDefault = false;
+      this.setData({ confirmText: e.detail.value });
+      this.doLogin();
+    }
+  },
+
+  doLogin () {
+    let params = {};
+    params.uuid = this.uuid || Utils.randomText(16);
+    params.password = Crypto.encrypt(this.password, params.uuid);
+    params.auto = true;
+    wx.showLoading({ title: "正在登录..." });
+    app.cloudFunction("login", params, (err, ret) => {
+      wx.hideLoading();
+      if (!err) {
+        this.loginSuccessed(ret);
+      }
+      else if (ret.code == 2) {
+        app.$showMessage("口令不正确", "登录失败");
+        return false;
+      }
+    });
+  },
+
+  loginSuccessed (user) {
+    app.userInfo = user;
+    app.userSecret = this.password;
+    if (!app.isProduction()) {
+      wx.setStorageSync("userInfo", user);
+      wx.setStorageSync("userSecret", this.password);
+    }
+    wx.redirectTo({ url: "/pages/index/index" });
   },
 
   checkPassword () {
@@ -41,6 +99,8 @@ Page({
     if (this.data.isFirstLogin) {
       if (this.password.length < 8)
         return this.showError("口令必须是8个字及以上");
+      if (this.password.length > 16)
+        return this.showError("");
       // if (!(/[a-zA-Z]/.test(this.password)))
       //   return this.showError("口令必须包含字母和数字");
       // if (!(/\d/.test(this.password)))
@@ -50,11 +110,10 @@ Page({
   },
 
   initUserInfo() {
-    app.userInfo = null;
     return new Promise((resolve, reject) => {
-      app.cloudFunction("accountInfo", null, (err, ret) => {
-        app.userInfo = !err ? ret : null;
-        resolve(app.userInfo);
+      app.cloudFunction("uuid", null, (err, ret) => {
+        let uuid = this.uuid = (!err ? ret : null);
+        resolve(uuid);
         return false;
       });
     });
