@@ -58,12 +58,12 @@ Component({
       let myEventDetail = { value: this.data.text };
       this.triggerEvent("submit", myEventDetail);
       if (!myEventDetail.preventDefault)
-        this.setData({ show: false });
+        this.setData({ show: false, value: "", text: "" });
     },
 
     onCancelHandler () {
       this.triggerEvent("cancel");
-      this.setData({ show: false });
+      this.setData({ show: false, value: "", text: "" });
     }
   }
 })
