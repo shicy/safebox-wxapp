@@ -1,5 +1,6 @@
 {
   "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
   "usingComponents": {
     "input-dialog": "../../components/dialog/InputDialog"
   }

@@ -1,23 +1,41 @@
 //index.js
 
+const Utils = require("../../utils/util.js");
 const Crypto = require("../../utils/crypto.js");
 
 const app = getApp()
 
 Page({
-  currentGroup: null,
+  currentGroupId: "0",
   currentEdit: null,
 
   data: {
     models: [],
+    loadingFlag: false,
+
     showAddBtns: false,
     nameEditorVisible: false,
     nameEditorTitle: "",
     nameEditorValue: ""
   },
 
+  // ============================================
   onLoad (options) {
-    console.log("=====>", options)
+    this.currentGroupId = options.id || "0";
+
+    this.refresh();
+
+    if (options.name) {
+      wx.setNavigationBarTitle({
+        title: options.name
+      });
+    }
+  },
+
+  onPullDownRefresh () {
+    this.refresh(() => {
+      wx.stopPullDownRefresh();
+    });
   },
 
   onViewTapHandler () {
@@ -45,10 +63,23 @@ Page({
     }
     else {
       e.detail.preventDefault = false;
-      this.doSave(Object.assign({ pid: "" }, this.currentEdit, { name: name }));
+      this.doSave(Object.assign({}, this.currentEdit, 
+        { pid: this.currentGroupId, name: name }));
     }
   },
 
+  onItemTapHandler (e) {
+    let data = e.currentTarget.dataset.v;
+    console.log(data);
+    if (data.type == 1) {
+      let params = { id: data._id, name: data.name };
+      wx.navigateTo({
+        url: "/pages/index/index?" + Utils.queryString(params)
+      });
+    }
+  },
+
+  // ============================================
   showEditor (data) {
     this.currentEdit = data;
     this.setData({
@@ -59,12 +90,47 @@ Page({
     });
   },
 
+  refresh (callback) {
+    let params = {};
+    params.pid = this.currentGroupId;
+
+    this.setData({ models: [], loadingFlag: true });
+
+    wx.showLoading({ title: "正在努力加载", mask: true });
+    app.cloudFunction("listGroup", params, (err, ret) => {
+      console.log("=====>", err, ret);
+      wx.hideLoading();
+      if (!err && ret) {
+        let models = this.data.models || [];
+        models = ret.map(this.formatData);
+        models.sort((a, b) => {
+          if (a.type != b.type)
+            return b.type - a.type;
+          if (a.name != b.name)
+            return a.name < b.name ? -1 : 1;
+          return 0;
+        });
+        this.setData({ models: models, loadingFlag: false });
+      }
+      if (callback) {
+        callback(err, ret);
+      }
+    });
+  },
+
   doSave (model) {
     model.name = Crypto.encrypt(app.userSecret, model.name);
     wx.showLoading({ title: "请稍等..", mask: true });
     app.cloudFunction("saveGroup", model, (err, ret) => {
-      console.log("0000", err, ret);
+      // console.log("saved", err, ret);
       wx.hideLoading();
+      this.refresh();
     });
+  },
+
+  formatData (data) {
+    data.name = Crypto.decrypt(app.userSecret, data.name);
+    return data;
   }
+
 })

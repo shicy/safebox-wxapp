@@ -1,7 +1,23 @@
 <!--index.wxml-->
 
 <view class="m-index" bindtap="onViewTapHandler">
-  <view class="empty">
+  <view wx:if="{{models && models.length > 0}}" class="listview">
+    <view wx:for="{{models}}" wx:key="{{item._id}}" 
+      class="item type-{{item.type}}" data-v="{{item}}"
+      bindtap="onItemTapHandler">
+      <view class="box">
+        <view class="icon">
+          <image wx:if="{{item.type==1}}" src="/images/002.png"></image>
+          <image wx:else src="/images/003.png"></image>
+        </view>
+        <view class="name">{{item.name}}</view>
+        <view class="morebtn">
+          <image src="/images/012.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{!loadingFlag}}" class="empty">
     <image class="bg" src="/images/empty.png"></image>
     <button class="additembtn" type="primary" bindtap="onAddItemBtnHandler">
       <image class="ic" src="/images/008.png"></image>

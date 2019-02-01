@@ -9,6 +9,56 @@ page {
   min-height: 100%;
 }
 
+.m-index .listview .item {
+  border-bottom: 1rpx solid #eee;
+}
+
+.m-index .listview .item.type-1 {
+  background-color: #F5F6F9;
+}
+
+.m-index .listview .box {
+  position: relative;
+  height: 88rpx;
+  padding: 0px 90rpx 0px 94rpx;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 34rpx;
+  line-height: 88rpx;
+}
+
+.m-index .listview .icon {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: 30rpx;
+  top: 50%;
+  margin-top: -20rpx;
+}
+
+.m-index .listview .name {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-index .listview .morebtn {
+  position: absolute;
+  width: 90rpx;
+  height: 88rpx;
+  top: 0px;
+  right: 0px;
+}
+
+.m-index .listview .morebtn image {
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  left: 50%;
+  top: 50%;
+  margin-left: -16rpx;
+  margin-top: -16rpx;
+}
+
 .m-index .empty {
   padding-top: 170rpx;
 }

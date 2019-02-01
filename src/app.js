@@ -13,7 +13,7 @@ App({
       this.userInfo = wx.getStorageSync("userInfo");
       this.userSecret = wx.getStorageSync("userSecret");
     }
-    else if (this.isTest()) {
+    else {
       wx.removeStorageSync("userInfo");
       wx.removeStorageSync("userSecret");
     }
@@ -59,6 +59,9 @@ App({
   },
 
   $showMessage (message, title) {
+    if (typeof message != "string") {
+      message = message.msg || JSON.stringify(message);
+    }
     wx.showModal({
       title: title || "温馨提示",
       content: message,
