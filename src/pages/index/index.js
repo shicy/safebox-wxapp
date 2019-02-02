@@ -83,14 +83,31 @@ Page({
     }
   },
 
+  onMoreBtnHandler (e) {
+    let data = e.currentTarget.dataset.v;
+    wx.showActionSheet({
+      itemList: ["修改名称", "删除"],
+      complete: (res) => {
+        if (res.tapIndex == 0) {
+          this.doUpate(data);
+        }
+        else if (res.tapIndex == 1) {
+          this.doDelete(data);
+        }
+      }
+    });
+  },
+
   // ============================================
   showEditor (data) {
     this.currentEdit = data;
-    this.setData({
-      showAddBtns: false,
-      nameEditorVisible: true,
-      nameEditorTitle: (data.type == 1 ? "请输入分组名称" : "请输入名称"),
-      nameEditorValue: ""
+    app.getSecret(true).then((secret) => {
+      this.setData({
+        showAddBtns: false,
+        nameEditorVisible: true,
+        nameEditorTitle: (data.type == 1 ? "请输入分组名称" : "请输入名称"),
+        nameEditorValue: (this.currentEdit && this.currentEdit.name || "")
+      });
     });
   },
 
@@ -102,19 +119,23 @@ Page({
 
     wx.showLoading({ title: "正在努力加载", mask: true });
     app.cloudFunction("listGroup", params, (err, ret) => {
-      console.log("=====>", err, ret);
+      // console.log("=====>", err, ret);
       wx.hideLoading();
       if (!err && ret) {
-        let models = this.data.models || [];
-        models = ret.map(this.formatData);
-        models.sort((a, b) => {
-          if (a.type != b.type)
-            return b.type - a.type;
-          if (a.name != b.name)
-            return a.name < b.name ? -1 : 1;
-          return 0;
+        app.getSecret().then((secret) => {
+          let models = this.data.models || [];
+          models = ret.map((temp) => {
+            return this.formatData(temp, secret);
+          });
+          models.sort((a, b) => {
+            if (a.type != b.type)
+              return b.type - a.type;
+            if (a.name != b.name)
+              return a.name < b.name ? -1 : 1;
+            return 0;
+          });
+          this.setData({ models: models, loadingFlag: false });
         });
-        this.setData({ models: models, loadingFlag: false });
       }
       if (callback) {
         callback(err);
@@ -123,17 +144,49 @@ Page({
   },
 
   doSave (model) {
-    model.name = Crypto.encrypt(app.userSecret, model.name);
-    wx.showLoading({ title: "请稍等..", mask: true });
-    app.cloudFunction("saveGroup", model, (err, ret) => {
-      // console.log("saved", err, ret);
-      wx.hideLoading();
-      this.refresh();
+    app.getSecret(true).then((secret) => {
+      model.name = Crypto.encrypt(secret, model.name);
+      wx.showLoading({ title: "请稍等..", mask: true });
+      app.cloudFunction("saveGroup", model, (err, ret) => {
+        // console.log("saved", err, ret);
+        wx.hideLoading();
+        this.refresh();
+      });
     });
   },
 
-  formatData (data) {
-    data.name = Crypto.decrypt(app.userSecret, data.name);
+  doUpate (model) {
+    app.getSecret(true).then(() => {
+      this.showEditor(model);
+    });
+  },
+
+  doDelete (model) {
+    wx.showModal({
+      title: "警告",
+      content: "是否确定删除？",
+      success: (res) => {
+        if (res.confirm) {
+          app.getSecret(true).then(() => {
+            let params = { id: model._id };
+            wx.showLoading({ title: "正在删除...", mask: true });
+            app.cloudFunction("removeGroup", params, (err, ret) => {
+              wx.hideLoading();
+              if (!err) {
+                wx.showToast({ title: "删除成功", duration: 1500 });
+                setTimeout(() => {
+                  this.refresh();
+                }, 1500);
+              }
+            });
+          });
+        }
+      }
+    })
+  },
+
+  formatData (data, secret) {
+    data.name = Crypto.decrypt(secret, data.name);
     return data;
   }
 

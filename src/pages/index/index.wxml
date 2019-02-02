@@ -11,7 +11,7 @@
           <image wx:else src="/images/003.png"></image>
         </view>
         <view class="name">{{item.name}}</view>
-        <view class="morebtn">
+        <view class="morebtn" data-v="{{item}}" catchtap="onMoreBtnHandler">
           <image src="/images/012.png"></image>
         </view>
       </view>
