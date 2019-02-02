@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
   let db = cloud.database();
   return new Promise((resolve, reject) => {
     db.collection("accounts")
-      .where({ openId: event.userInfo.openId })
+      .where({ _openId: event.userInfo.openId })
       .get()
       .then((res) => {
         if (/ok/.test(res.errMsg)) {

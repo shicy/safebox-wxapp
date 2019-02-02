@@ -2,7 +2,7 @@
 
 wx.cloud.init();
 
-const env = "dev"; // prod, test, dev
+const env = "prod"; // prod, test, dev
 
 let userSecret = null;
 let userSecretValid = false;
