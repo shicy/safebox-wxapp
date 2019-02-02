@@ -23,7 +23,7 @@
   text-overflow: ellipsis;
 }
 
-.m-detail-item .deletebtn {
+.m-detail-item .morebtn {
   position: absolute;
   width: 80rpx;
   height: 80rpx;
@@ -31,7 +31,7 @@
   right: 0px;
 }
 
-.m-detail-item .deletebtn image {
+.m-detail-item .morebtn image {
   position: absolute;
   width: 32rpx;
   height: 32rpx;

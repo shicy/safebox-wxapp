@@ -19,14 +19,29 @@ Page({
   },
 
   onShow () {
-    console.log("onShow")
+    if (wx.getStorageSync("page_edit_saved")) {
+      wx.removeStorageSync("page_edit_saved");
+      this.refresh();
+    }
   },
 
   onAddBtnHandler () {
-    wx.setStorageSync("data_for_edit", {groupId: this.options.id});
-    wx.navigateTo({
-      url: "/pages/edit/edit"
+    app.getSecret(true).then(() => {
+      wx.setStorageSync("data_for_edit", { groupId: this.options.id });
+      wx.navigateTo({ url: "/pages/edit/edit" });
     });
+  },
+
+  onItemEditHandler (e) {
+    let data = e.detail;
+    app.getSecret(true).then(() => {
+      wx.setStorageSync("data_for_edit", data);
+      wx.navigateTo({ url: "/pages/edit/edit" });
+    });
+  },
+
+  onItemDeleteHandler (e) {
+    this.refresh();
   },
 
   refresh (callback) {
@@ -39,9 +54,11 @@ Page({
     app.cloudFunction("listItem", params, (err, ret) => {
       wx.hideLoading();
       if (!err && ret) {
-        let models = this.data.models || [];
-        models = ret.map(this.formatData);
-        this.setData({ models: models, loadingFlag: false });
+        app.getSecret().then(() => {
+          let models = this.data.models || [];
+          models = ret.map(this.formatData);
+          this.setData({ models: models, loadingFlag: false });
+        });
       }
       if (callback) {
         callback(err);

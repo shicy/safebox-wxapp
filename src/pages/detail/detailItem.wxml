@@ -4,8 +4,8 @@
   <view class="box">
     <view class="head">
       <view class="title">{{title}}</view>
-      <view class="deletebtn">
-        <image src="/images/009.png"></image>
+      <view class="morebtn" bindtap="onMoreBtnHandler">
+        <image src="/images/012.png"></image>
       </view>
     </view>
     <view class="content">

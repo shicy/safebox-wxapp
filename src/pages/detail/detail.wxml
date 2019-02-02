@@ -3,7 +3,9 @@
 <view class="m-detail">
   <view wx:if="{{models && models.length > 0}}" class="listview">
     <view wx:for="{{models}}" wx:key="{{item._id}}" class="item">
-      <detail-item model="{{item}}"></detail-item>
+      <detail-item model="{{item}}" 
+        bindedit="onItemEditHandler"
+        binddeleted="onItemDeleteHandler"></detail-item>
     </view>
   </view>
 
