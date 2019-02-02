@@ -4,14 +4,17 @@ wx.cloud.init();
 
 const env = "dev"; // prod, test, dev
 
+let userSecret = null;
+let userSecretValid = false;
+let userSecretTimerId = 0;
+
 App({
   userInfo: null,
-  userSecret: null,
 
   onLaunch () {
     if (this.isDev()) {
       this.userInfo = wx.getStorageSync("userInfo");
-      this.userSecret = wx.getStorageSync("userSecret");
+      this.setSecret(wx.getStorageSync("userSecret"));
     }
     else {
       wx.removeStorageSync("userInfo");
@@ -29,6 +32,40 @@ App({
 
   isProduction () {
     return env == "prod";
+  },
+
+  getSecret (valid) {
+    return new Promise((resolve, reject) => {
+      if (userSecret && userSecretValid) {
+        resolve(userSecret);
+      }
+      else if (userSecret && !valid) {
+        resolve(userSecret);
+      }
+      else {
+        this._secretCallback = (secret) => {
+          this.setSecret(secret);
+          resolve(secret);
+        };
+        wx.navigateTo({ url: "/pages/others/secret_input" });
+      }
+    });
+  },
+
+  setSecret (value) {
+    userSecret = value;
+    userSecretValid = true;
+    if (!this.isDev()) {
+      if (userSecretTimerId) {
+        clearTimeout(userSecretTimerId);
+      }
+      userSecretTimerId = setTimeout(() => {
+        console.log("invalid")
+        // userSecret = "";
+        userSecretValid = false;
+        userSecretTimerId = 0;
+      }, 5 * 60 * 1000);
+    }
   },
 
   cloudFunction (name, data, callback) {

@@ -3,7 +3,8 @@
     "pages/auth/login/login",
     "pages/detail/detail",
     "pages/index/index",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/others/secret_input"
   ],
   "window": {
     "backgroundTextStyle": "light",
