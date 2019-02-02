@@ -1,0 +1,24 @@
+<!--pages/detail/detailItem.wxml-->
+
+<view class="m-detail-item">
+  <view class="box">
+    <view class="head">
+      <view class="title">{{title}}</view>
+      <view class="deletebtn">
+        <image src="/images/009.png"></image>
+      </view>
+    </view>
+    <view class="content">
+      <view wx:if="{{lockflag}}" class="text">{{content}}</view>
+      <view wx:else>
+        <rich-text class="text" nodes="{{richContent}}"></rich-text>
+      </view>
+    </view>
+    <view wx:if="{{lockflag}}" class="lock" bindtap="onLockTapHandler">
+      <image src="/images/013.png"></image>
+    </view>
+    <view wx:else class="locktime">
+      <view class="val">{{lockTime}}</view>
+    </view>
+  </view>
+</view>

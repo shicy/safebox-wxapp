@@ -7,7 +7,7 @@
         bindinput="onTitleInputHandler"></input>
     </view>
     <view class="form-item">
-      <textarea value="{{content}}" placeholder="在这里输入你的内容"
+      <textarea value="{{content}}" placeholder="在这里输入你的内容" maxlength="{{-1}}"
         bindinput="onContentInputHandler"></textarea>
     </view>
   </view>

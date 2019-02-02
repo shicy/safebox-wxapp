@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/auth/login/login",
     "pages/detail/detail",
     "pages/index/index",
-    "pages/edit/edit",
-    "pages/auth/login/login"
+    "pages/edit/edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

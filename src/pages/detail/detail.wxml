@@ -3,18 +3,7 @@
 <view class="m-detail">
   <view wx:if="{{models && models.length > 0}}" class="listview">
     <view wx:for="{{models}}" wx:key="{{item._id}}" class="item">
-      <view class="box">
-        <view class="head">
-          <view class="name">金佛我就佛诶</view>
-          <view class="deletebtn">
-            <image src="/images/009.png"></image>
-          </view>
-        </view>
-        <view class="content">减肥哦我家呃我氛围放假额我符合叫我凤凰网i放假饿哦废物</view>
-        <view class="lock">
-          <image src="/images/013.png"></image>
-        </view>
-      </view>
+      <detail-item model="{{item}}"></detail-item>
     </view>
   </view>
 

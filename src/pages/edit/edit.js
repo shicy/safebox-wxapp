@@ -1,6 +1,5 @@
 // src/pages/edit/edit.js
 
-const Utils = require("../../utils/util.js");
 const Crypto = require("../../utils/crypto.js");
 
 const app = getApp();
@@ -48,8 +47,21 @@ Page({
     
     if (this.currentItem._id)
       params._id = this.currentItem._id;
+    params.groupId = this.currentItem.groupId;
+    params.title = Crypto.encrypt(app.userSecret, params.title);
+    params.content = Crypto.encrypt(app.userSecret, params.content);
     
     wx.showLoading({ title: "正在提交...", mask: true });
+    app.cloudFunction("saveItem", params, (err, ret) => {
+      wx.hideLoading();
+      if (!err) {
+        wx.showToast({ title: "保存成功", duration: 1500 });
+        wx.setStorageSync("page_edit_saved", "1");
+        setTimeout(() => {
+          wx.navigateBack({});
+        }, 1500);
+      }
+    });
   }
 
 })

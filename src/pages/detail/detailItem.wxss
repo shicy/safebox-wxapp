@@ -1,0 +1,91 @@
+/* pages/detail/detailItem.wxss */
+
+.m-detail-item .box {
+  position: relative;
+  overflow: hidden;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  background-color: #fff;
+}
+
+.m-detail-item .head {
+  position: relative;
+  height: 80rpx;
+  padding: 0px 80rpx 0px 24rpx;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  border-bottom: 1rpx dashed #ddd;
+}
+
+.m-detail-item .head .title {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-detail-item .deletebtn {
+  position: absolute;
+  width: 80rpx;
+  height: 80rpx;
+  top: 0px;
+  right: 0px;
+}
+
+.m-detail-item .deletebtn image {
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  top: 50%;
+  left: 50%;
+  margin-left: -16rpx;
+  margin-top: -16rpx;
+}
+
+.m-detail-item .content {
+  min-height: 128rpx;
+  padding: 20rpx 24rpx;
+  color: #333;
+  font-size: 28rpx;
+  line-height: 44rpx;
+  box-sizing: border-box;
+}
+
+.m-detail-item .content .text {
+  max-height: 132rpx;
+  overflow: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.m-detail-item .lock {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 82rpx;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.m-detail-item .lock image {
+  position: absolute;
+  width: 64rpx;
+  height: 64rpx;
+  left: 50%;
+  top: 50%;
+  margin-left: -32rpx;
+  margin-top: -32rpx;
+}
+
+.m-detail-item .locktime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 82rpx;
+  bottom: 0px;
+  color: rgba(0, 0, 0, 0.05);
+  font-size: 90rpx;
+  font-weight: bold;
+}
