@@ -70,11 +70,15 @@ Page({
 
   onItemTapHandler (e) {
     let data = e.currentTarget.dataset.v;
-    console.log(data);
+    let params = { id: data._id, name: data.name };
     if (data.type == 1) {
-      let params = { id: data._id, name: data.name };
       wx.navigateTo({
         url: "/pages/index/index?" + Utils.queryString(params)
+      });
+    }
+    else {
+      wx.navigateTo({
+        url: "/pages/detail/detail?" + Utils.queryString(params)
       });
     }
   },
@@ -113,7 +117,7 @@ Page({
         this.setData({ models: models, loadingFlag: false });
       }
       if (callback) {
-        callback(err, ret);
+        callback(err);
       }
     });
   },
