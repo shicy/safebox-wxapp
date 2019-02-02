@@ -9,8 +9,9 @@
 
   <view class="form">
     <view class="form-item">
-      <input type="text" password="{{!seepwd}}" placeholder="请输入口令 8-16个字" placeholder-class="hover"
-        cursor-spacing="40rpx" bindinput="onInputHandler" bindconfirm="onLoginBtnHandler"></input>
+      <input type="text" password="{{!seepwd}}" placeholder="请输入口令 8-16个字"
+        placeholder-class="hover" cursor-spacing="40rpx" 
+        bindinput="onInputHandler" bindconfirm="onLoginBtnHandler"></input>
       <image class="icon" src="/images/001.png"></image>
       <button class="eye" bindtap="onEyeBtnHandler">
         <image wx:if="{{seepwd}}" src="/images/011.png"></image>

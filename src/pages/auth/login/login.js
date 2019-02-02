@@ -85,7 +85,7 @@ Page({
 
   loginSuccessed (user) {
     app.userInfo = user;
-    app.userSecret = this.password;
+    app.setSecret(this.password);
     if (!app.isProduction()) {
       wx.setStorageSync("userInfo", user);
       wx.setStorageSync("userSecret", this.password);
