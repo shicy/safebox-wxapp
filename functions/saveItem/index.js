@@ -25,6 +25,7 @@ exports.main = async (event, context) => {
       }
     };
     if (params._id) {
+      data._id = params._id;
       update(db, data, completeHandler);
     }
     else {
@@ -52,8 +53,10 @@ const insert = function (db, data, callback) {
 };
 
 const update = function (db, data, callback) {
-  db.collection("safe_items")
-    .doc(data._id)
+  let id = data._id;
+  delete data._id;
+  db.collection("safebox_items")
+    .doc(id)
     .update({ data: data })
     .then((res) => {
       if (/ok/.test(res.errMsg)) {

@@ -5,12 +5,23 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
+  let params = event.data || {};
+  if (!params.id)
+    return { code: 1, msg: "缺少必要参数" };
 
-  return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  }
-}
+  let db = cloud.database();
+  return new Promise((resolve, reject) => {
+    db.collection("safebox_items").doc(params.id).remove()
+      .then((res) => {
+        if (/ok/.test(res.errMsg)) {
+          resolve({ code: 0, msg: "ok" });
+        }
+        else {
+          resolve({ code: 1, msg: res.errMsg });
+        }
+      })
+      .catch((err) => {
+        resolve({ code: err.errCode, msg: err.errMsg });
+      });
+  });
+};
