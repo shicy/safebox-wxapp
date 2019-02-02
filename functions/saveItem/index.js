@@ -37,7 +37,7 @@ exports.main = async (event, context) => {
 };
 
 const insert = function (db, data, callback) {
-  db.collection("safe_items")
+  db.collection("safebox_items")
     .add({ data: data })
     .then((res) => {
       if (/ok/.test(res.errMsg)) {

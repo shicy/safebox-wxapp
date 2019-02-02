@@ -59,7 +59,7 @@ const getUser = function (db, openId, callback) {
 
 const createUser = function (db, openId, uuid, password) {
   let user = {};
-  user.openId = openId;
+  user._openId = openId;
   user.uuid = uuid;
   user.username = getRandomName();
   user.password = password;
@@ -110,7 +110,7 @@ const setLastTime = function (db, user) {
 const setLogger = function (db, user) {
   let params = {};
   params.userId = user._id;
-  params.openId = user.openId;
+  params._openId = user.openId;
   params.type = "login";
   params.remark = `用户${user.username}登录`;
   params.createTime = new Date();
