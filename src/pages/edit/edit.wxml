@@ -1,0 +1,17 @@
+<!--src/pages/edit/edit.wxml-->
+
+<view class="m-edit">
+  <view class="form">
+    <view class="form-item">
+      <input value="{{title}}" placeholder="标题"
+        bindinput="onTitleInputHandler"></input>
+    </view>
+    <view class="form-item">
+      <textarea value="{{content}}" placeholder="在这里输入你的内容"
+        bindinput="onContentInputHandler"></textarea>
+    </view>
+  </view>
+  <view class="submitbtn">
+    <button type="primary" bindtap="onSubmitBtnHandler">确定</button>
+  </view>
+</view>

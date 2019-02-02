@@ -1,0 +1,38 @@
+/* src/pages/edit/edit.wxss */
+
+page {
+  min-height: 100%;
+  background-color: #f3f3f3;
+}
+
+.m-edit {
+  padding: 24rpx;
+}
+
+.m-edit .form-item {
+  margin-bottom: 20rpx;
+}
+
+.m-edit input {
+  height: 88rpx;
+  padding: 0px 30rpx;
+  font-size: 32rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 6rpx;
+  background-color: #fff;
+}
+
+.m-edit textarea {
+  width: 100%;
+  height: 340rpx;
+  padding: 20rpx 30rpx;
+  font-size: 32rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 6rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.m-edit .submitbtn {
+  margin-top: 40rpx;
+}
